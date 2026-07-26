@@ -13,27 +13,24 @@ from torch.utils.checkpoint import checkpoint_sequential
 torch.cuda.memory._record_memory_history()
 
 model = nn.Sequential(                           #             1*2*4   >
-    nn.Linear(2, 7, bias = False, device='cuda'),#2*7*4        > 7*4
-    nn.Linear(7, 3, bias = False, device='cuda'),#7*3*4        > 3*4  
-    nn.Linear(3, 5, bias = False, device='cuda'),#3*5*4        > 5*4
-
-    nn.Linear(5, 2, bias = False, device='cuda'),#5*2*4        > 2*4
-    nn.Linear(2, 3, bias = False, device='cuda'),#2*3*4        > 3*4
-    nn.Linear(3, 5, bias = False, device='cuda'),#3*5*4        > 5*4
-
-    nn.Linear(5, 7, bias = False, device='cuda'),#5*7*4        > 7*4
-    nn.Linear(7, 3, bias = False, device='cuda'),#7*3*4        > 3*4
+    nn.Linear(2, 3, bias = False, device='cuda'),#2*7*4        > 7*4
     nn.Linear(3, 5, bias = False, device='cuda') #3*5*4        > 5*4 
     )
 
 x = torch.randn(1, 2,  device='cuda')
 
-y = checkpoint_sequential(
+balance = [1, 1]
+devices = ['cuda:0', 'cuda:1']
+
+model = GPipe(
     model, 
-    segments=3, 
-    input=x,
-    use_reentrant=False
+    balance=balance, 
+    devices=devices, 
+    chunks=2, 
+    checkpoint='never'
     )
+
+y = model(x)
 
 loss = torch.ones_like(y)
 y.backward(loss)
