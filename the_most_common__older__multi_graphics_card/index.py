@@ -26,7 +26,7 @@ model = GPipe(
     model, 
     balance=balance, 
     devices=devices, 
-    chunks=1, 
+    chunks=2, 
     checkpoint='never'
     )
 
