@@ -17,7 +17,7 @@ model = nn.Sequential(
     nn.Linear(3, 5, bias = False, device='cuda:1')  
     )
 
-x = torch.randn(1, 2,  device='cuda:0')
+x = torch.randn(2, 2,  device='cuda:0')
 
 balance = [1, 1]
 devices = ['cuda:0', 'cuda:1']
