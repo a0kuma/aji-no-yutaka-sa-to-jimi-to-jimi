@@ -12,12 +12,12 @@ from torch.utils.checkpoint import checkpoint_sequential
 
 torch.cuda.memory._record_memory_history()
 
-model = nn.Sequential(                           #             1*2*4   >
-    nn.Linear(2, 3, bias = False, device='cuda'),#2*7*4        > 7*4
-    nn.Linear(3, 5, bias = False, device='cuda') #3*5*4        > 5*4 
+model = nn.Sequential(
+    nn.Linear(2, 3, bias = False, device='cuda:0'),
+    nn.Linear(3, 5, bias = False, device='cuda:1')  
     )
 
-x = torch.randn(1, 2,  device='cuda')
+x = torch.randn(1, 2,  device='cuda:0')
 
 balance = [1, 1]
 devices = ['cuda:0', 'cuda:1']
