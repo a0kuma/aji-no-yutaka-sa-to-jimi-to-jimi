@@ -25,8 +25,8 @@ model = nn.Sequential(
 
 x = torch.randn(1, 7,  device='cuda:0')
 
-balance = [1, 1, 1, 1]
-devices = ['cuda:0', 'cuda:0', 'cuda:1', 'cuda:1']
+balance = [2, 2]
+devices = ['cuda:0', 'cuda:1']
 
 model = GPipe(
     model, 
