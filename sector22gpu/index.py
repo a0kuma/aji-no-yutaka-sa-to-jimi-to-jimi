@@ -31,7 +31,7 @@ model = GPipe(
     balance=balance, 
     devices=devices, 
     chunks=1, 
-    checkpoint='never'
+    checkpoint='always'
     )
 
 y = model(x)
