@@ -40,7 +40,7 @@ y = checkpoint.checkpoint(
     input=x,
     determinism_check='none',
     debug=False,
-    early_stop=True,
+    early_stop=False,
     use_reentrant=False
     )
 
@@ -49,5 +49,5 @@ y = checkpoint.checkpoint(
 loss = torch.ones_like(y)
 y.backward(loss)
 
-torch.cuda.memory._dump_snapshot(f'official_sg22{str(dt.datetime.now().timestamp()).replace(".","")}.pickle')
+torch.cuda.memory._dump_snapshot(f'official_ES_falsesg22{str(dt.datetime.now().timestamp()).replace(".","")}.pickle')
 
