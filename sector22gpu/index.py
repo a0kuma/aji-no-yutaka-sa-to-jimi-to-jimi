@@ -19,14 +19,14 @@ torch.cuda.memory._record_memory_history()
 model = nn.Sequential(
     nn.Linear(7, 3, bias = False, device='cuda:0'),
     nn.Linear(3, 2, bias = False, device='cuda:0'),  
-    nn.Linear(2, 3, bias = False, device='cuda:1'),
-    nn.Linear(3, 5, bias = False, device='cuda:1')
+    nn.Linear(2, 5, bias = False, device='cuda:1')#,
+    #nn.Linear(3, 5, bias = False, device='cuda:1')
     )
 
 x = torch.randn(1, 7,  device='cuda:0')
 
-balance = [2, 2]
-devices = ['cuda:0', 'cuda:1']
+balance = [3]
+devices = ['cuda:0']
 
 model = GPipe(
     model, 
