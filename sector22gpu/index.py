@@ -32,8 +32,8 @@ model = nn.Sequential(
     nn.Linear(2, 5, bias = False, device='cuda:1'),#2*5*4=40 > 5*4=20
     )
 
-balance = [3, 3, 3, 3]
-devices = ['cuda:0', 'cuda:0', 'cuda:1', 'cuda:1']
+balance = [2, 2, 2, 2, 2, 2]
+devices = ['cuda:0', 'cuda:0', 'cuda:0', 'cuda:1', 'cuda:1', 'cuda:1']
 
 model = GPipe(
     model, 
@@ -48,5 +48,5 @@ y = model(x)
 loss = torch.ones_like(y)
 y.backward(loss)
 
-torch.cuda.memory._dump_snapshot(f'layer8segment4gpu2{str(dt.datetime.now().timestamp()).replace(".","")}.pickle')
+torch.cuda.memory._dump_snapshot(f'33_{str(dt.datetime.now().timestamp()).replace(".","")}.pickle')
 
