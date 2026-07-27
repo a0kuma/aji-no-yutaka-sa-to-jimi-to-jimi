@@ -17,7 +17,7 @@ model = nn.Sequential(
     nn.Linear(3, 5, bias = False, device='cuda:1')  
     )
 
-x = torch.randn(1, 7,  device='cuda:0')
+x = torch.randn(2, 7,  device='cuda:0')
 
 balance = [1, 1]
 devices = ['cuda:0', 'cuda:1']
@@ -26,7 +26,7 @@ model = GPipe(
     model, 
     balance=balance, 
     devices=devices, 
-    chunks=1, 
+    chunks=2, 
     checkpoint='never'
     )
 
@@ -35,4 +35,4 @@ y = model(x)
 loss = torch.ones_like(y)
 y.backward(loss)
 
-torch.cuda.memory._dump_snapshot('basic_of_the_old_pytorch_gpipe_use_1_batch_and_want_sse_the_small_block.pickle')
+torch.cuda.memory._dump_snapshot('B2_basic_of_the_old_pytorch_gpipe_use_1_batch_and_want_sse_the_small_block.pickle')
