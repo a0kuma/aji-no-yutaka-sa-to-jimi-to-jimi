@@ -19,7 +19,7 @@ torch.cuda.memory._record_memory_history()
 model = nn.Sequential(
     nn.Linear(7, 3, bias = False, device='cuda:0'),
     nn.Linear(3, 2, bias = False, device='cuda:0'),  
-    nn.Linear(2, 5, bias = False, device='cuda:1')#,
+    nn.Linear(2, 5, bias = False, device='cuda:0')#,
     #nn.Linear(3, 5, bias = False, device='cuda:1')
     )
 
