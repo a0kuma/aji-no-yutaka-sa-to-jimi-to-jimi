@@ -1,0 +1,17 @@
+(p14v2) r13922a13@puipui:~/playground/aji-no-yutaka-sa-to-jimi-to-jimi/sector22gpu$ python index.py
+Traceback (most recent call last):
+  File "/home/r13922a13/playground/aji-no-yutaka-sa-to-jimi-to-jimi/sector22gpu/index.py", line 28, in <module>
+    model = GPipe(
+        model,
+    ...<3 lines>...
+        checkpoint='never'
+        )
+  File "/home/r13922a13/anaconda3/envs/p14v2/lib/python3.14/site-packages/torchgpipe/gpipe.py", line 250, in __init__
+    self.partitions, self.balance, self.devices = split_module(module, balance, devices)
+                                                  ~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/r13922a13/anaconda3/envs/p14v2/lib/python3.14/site-packages/torchgpipe/gpipe.py", line 101, in split_module
+    raise IndexError('too few devices to hold given partitions '
+                     f'(devices: {len(devices)}, partitions: {len(balance)})')
+IndexError: too few devices to hold given partitions (devices: 4, partitions: 5)
+(p14v2) r13922a13@puipui:~/playground/aji-no-yutaka-sa-to-jimi-to-jimi/sector22gpu$ cp index.py how_the_device_list_etc_work/index2.py
+(
