@@ -1,0 +1,37 @@
+(p14v2) r13922a13@puipui:~/playground/aji-no-yutaka-sa-to-jimi-to-jimi/sector22gpu$ python index.py
+Traceback (most recent call last):
+  File "/home/r13922a13/anaconda3/envs/p14v2/lib/python3.14/site-packages/torchgpipe/gpipe.py", line 250, in __init__
+    self.partitions, self.balance, self.devices = split_module(module, balance, devices)
+                                                  ~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/r13922a13/anaconda3/envs/p14v2/lib/python3.14/site-packages/torchgpipe/gpipe.py", line 94, in split_module
+    raise BalanceError('module and sum of balance have different length '
+                       f'(module: {len(module)}, sum of balance: {sum(balance)})')
+torchgpipe.gpipe.BalanceError: module and sum of balance have different length (module: 4, sum of balance: 2)
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/home/r13922a13/playground/aji-no-yutaka-sa-to-jimi-to-jimi/sector22gpu/index.py", line 27, in <module>
+    model = GPipe(
+        model,
+    ...<3 lines>...
+        checkpoint='never'
+        )
+  File "/home/r13922a13/anaconda3/envs/p14v2/lib/python3.14/site-packages/torchgpipe/gpipe.py", line 252, in __init__
+    raise ValueError(recommend_auto_balance(str(exc)))
+ValueError: module and sum of balance have different length (module: 4, sum of balance: 2)
+
+If your model is still under development, its optimal balance would change
+frequently. In this case, we highly recommend 'torchgpipe.balance' for naive
+automatic balancing:
+
+  from torchgpipe import GPipe
+  from torchgpipe.balance import balance_by_time
+
+  partitions = torch.cuda.device_count()
+  sample = torch.empty(...)
+  balance = balance_by_time(partitions, model, sample)
+
+  model = GPipe(model, balance, ...)
+
+(
