@@ -40,7 +40,7 @@ model = GPipe(
     balance=balance, 
     devices=devices, 
     chunks=1, 
-    checkpoint='always'
+    checkpoint='except_last'
     ) 
 
 y = model(x)
@@ -48,5 +48,5 @@ y = model(x)
 loss = torch.ones_like(y)
 y.backward(loss)
 
-torch.cuda.memory._dump_snapshot(f'33_{str(dt.datetime.now().timestamp()).replace(".","")}.pickle')
+torch.cuda.memory._dump_snapshot(f'33_EXPLAST_{str(dt.datetime.now().timestamp()).replace(".","")}.pickle')
 
