@@ -43,11 +43,10 @@ model = GPipe(
     checkpoint='always'
     ) 
 
-for step in range(2):
-    model.zero_grad(set_to_none=False)
-    y = model(x)
-    loss = torch.ones_like(y)
-    y.backward(loss)
 
-torch.cuda.memory._dump_snapshot(f'loop2set_to_none=False_{str(dt.datetime.now().timestamp()).replace(".","")}.pickle')
+y = model(x)
+loss = torch.ones_like(y)
+y.backward(loss)
+
+torch.cuda.memory._dump_snapshot(f'thestuff_{str(dt.datetime.now().timestamp()).replace(".","")}.pickle')
 
