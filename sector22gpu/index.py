@@ -16,7 +16,7 @@ from torch.utils.checkpoint import checkpoint_sequential
 
 torch.cuda.memory._record_memory_history()
 
-x = torch.randn(1, 7,  device='cuda:0')            #1*7*4=28
+x = torch.randn(1, 7,  device='cuda:0', requires_grad=True)            #1*7*4=28
 model = nn.Sequential(
     nn.Linear(7, 2, bias = False, device='cuda:0'),#7*2*4=56 > 2*4=8
     nn.Linear(2, 2, bias = False, device='cuda:0'),
@@ -48,5 +48,5 @@ y = model(x)
 loss = torch.ones_like(y)
 y.backward(loss)
 
-torch.cuda.memory._dump_snapshot(f'thestuff_{str(dt.datetime.now().timestamp()).replace(".","")}.pickle')
+torch.cuda.memory._dump_snapshot(f'thestuff_requires_grad=True_{str(dt.datetime.now().timestamp()).replace(".","")}.pickle')
 
